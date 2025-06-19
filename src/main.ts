@@ -20,7 +20,7 @@ async function bootstrap() {
   botService.init(bot);
 
   await bot.launch();
-  console.log('✅ Qur\'on va Hadis bot ishga tushdi!');
+  console.log("✅ Qur'on va Hadis bot ishga tushdi!");
 
   // Graceful shutdown
   process.once('SIGINT', () => bot.stop('SIGINT'));

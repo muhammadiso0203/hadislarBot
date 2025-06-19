@@ -5,9 +5,9 @@ import { BotModule } from './bot/bot.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
-    BotModule
+    BotModule,
   ],
 })
 export class AppModule {}
