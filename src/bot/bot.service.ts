@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { Context, Telegraf } from 'telegraf';
 import * as fs from 'fs';
@@ -6,8 +7,9 @@ import * as path from 'path';
 @Injectable()
 export class BotService {
   private hadis: any[] = [];
+  private user: any[] = [];
 
-  constructor() {
+  constructor(private configService: ConfigService) {
     try {
       const hadithsPath = path.resolve(__dirname, '..', 'data','data', 'hadis.json');
       this.hadis = JSON.parse(fs.readFileSync(hadithsPath, 'utf8'));
@@ -15,6 +17,24 @@ export class BotService {
     } catch (error) {
       console.error('❌ Hadis faylini yuklashda xatolik:', error);
     }
+
+    try {
+      const userPath = path.resolve(__dirname, '..', 'data', 'data', 'hadis.json');
+      if(fs.existsSync(userPath)){
+        this.user = JSON.parse(fs.readFileSync(userPath, 'utf-8'));
+      } else{
+        this.user = [];
+      }
+
+    } catch (error) {
+      console.log('Users.json faylini yuklab bo`lmadi');
+      
+    }
+  }
+
+  private IsAdmin = (ctx: Context): boolean{
+    const adminID = Number(this.configService.get('ADMIN_ID'));
+    return ctx.from?.id === adminID;
   }
 
   init(bot: Telegraf) {
