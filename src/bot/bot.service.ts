@@ -44,7 +44,6 @@ export class BotService {
       const booksPath = path.resolve(
         __dirname,
         '..',
-        'data',
         'books',
         'books.json',
       );
@@ -134,7 +133,6 @@ export class BotService {
         const filePath = path.resolve(
           __dirname,
           '..',
-          'data',
           'books',
           'Baxtiyor-Oila.pdf',
         );
@@ -269,7 +267,6 @@ export class BotService {
     const filePath = path.resolve(
       __dirname,
       '..',
-      'data',
       'books',
       'books.json',
     );
@@ -294,7 +291,6 @@ export class BotService {
       const filePath = path.resolve(
         __dirname,
         '..',
-        'data',
         'books',
         file.file_name,
       );
@@ -314,7 +310,6 @@ export class BotService {
       const booksJsonPath = path.resolve(
         __dirname,
         '..',
-        'data',
         'books',
         'books.json',
       );
