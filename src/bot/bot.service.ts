@@ -16,34 +16,27 @@ export class BotService {
 
   constructor(private configService: ConfigService) {
     try {
-      const hadithsPath = path.resolve(
-        __dirname,
-        '..',
-        'data',
-        'data',
-        'hadis.json',
-      );
+      const hadithsPath = path.resolve('public', 'hadis.json');
       this.hadis = JSON.parse(fs.readFileSync(hadithsPath, 'utf8'));
       console.log(`✅ ${this.hadis.length} ta hadis yuklandi.`);
     } catch (error) {
       console.error('❌ Hadis faylini yuklashda xatolik:', error);
-    }
-
+    }    
     try {
-      const usersPath = path.resolve(__dirname, '..', 'data', 'users.json');
-      if (fs.existsSync(usersPath)) {
-        this.users = JSON.parse(fs.readFileSync(usersPath, 'utf-8'));
-      } else {
-        this.users = [];
-      }
+      const usersPath = path.resolve('public', 'users.json');
+      
+      this.users = JSON.parse(fs.readFileSync(usersPath, 'utf-8'));
+      console.log(usersPath);
+      console.log('User fayl yuklandi');
+      console.log(usersPath);
+      
     } catch (error) {
       console.log('Users.json faylini yuklab bo`lmadi');
     }
 
     try {
       const booksPath = path.resolve(
-        __dirname,
-        '..',
+        'public',
         'books',
         'books.json',
       );
@@ -86,7 +79,7 @@ export class BotService {
         this.users.push(newUser);
 
         // Faylga saqlash
-        const usersPath = path.resolve(__dirname, '..', 'data', 'users.json');
+        const usersPath = path.resolve('public', 'users.json');
         fs.writeFileSync(usersPath, JSON.stringify(this.users, null, 2));
         console.log(
           `✅ Yangi foydalanuvchi qo‘shildi: ${fullName} (${userId})`,
@@ -131,20 +124,20 @@ export class BotService {
     this.books.forEach((book) => {
       bot.action(`book_${book.id}`, (ctx) => {
         const filePath = path.resolve(
-          __dirname,
-          '..',
+          'public',
           'books',
-          'Baxtiyor-Oila.pdf',
+          'books.json',
         );
-
+        
         if (!fs.existsSync(filePath)) {
           return ctx.reply('❌ Kitob topilmadi.');
         }
-
+        
         return ctx.replyWithDocument({
           source: filePath,
           filename: book.title + '.pdf',
         });
+        
       });
     });
 
@@ -196,87 +189,74 @@ export class BotService {
     });
 
     bot.on('text', (ctx) => {
-  const userId = ctx.from?.id;
-  if (!userId) return;
+      const userId = ctx.from?.id;
+      if (!userId) return;
 
-  const text = ctx.message?.text;
-  if (!text) return;
+      const text = ctx.message?.text;
+      if (!text) return;
 
-  // ✅ Hadis qo‘shish rejimi
-  if (this.addHadisSession.has(userId)) {
-    const newId =
-      this.hadis.length > 0 ? this.hadis[this.hadis.length - 1].id + 1 : 1;
-    this.hadis.push({ id: newId, text });
+      // ✅ Hadis qo‘shish rejimi
+      if (this.addHadisSession.has(userId)) {
+        const newId =
+          this.hadis.length > 0 ? this.hadis[this.hadis.length - 1].id + 1 : 1;
+        this.hadis.push({ id: newId, text });
 
-    const filePath = path.resolve(
-      __dirname,
-      '..',
-      'data',
-      'data',
-      'hadis.json',
-    );
-    fs.writeFileSync(filePath, JSON.stringify(this.hadis, null, 2));
+        const filePath = path.resolve('public', 'hadis.json');
+        
+        fs.writeFileSync(filePath, JSON.stringify(this.hadis, null, 2));
 
-    ctx.reply(`✅ Yangi hadis qo‘shildi (#${newId})`);
-    this.addHadisSession.delete(userId);
-    return;
-  }
+        ctx.reply(`✅ Yangi hadis qo‘shildi (#${newId})`);
+        this.addHadisSession.delete(userId);
+        return;
+      }
 
-  // 🗑 Hadis o‘chirish rejimi
-  if (this.deleteHadisSession.has(userId)) {
-    const id = Number(text);
-    if (isNaN(id)) {
-      return ctx.reply('❌ Noto‘g‘ri ID kiritildi. Masalan: `3`');
-    }
+      // 🗑 Hadis o‘chirish rejimi
+      if (this.deleteHadisSession.has(userId)) {
+        const id = Number(text);
+        if (isNaN(id)) {
+          return ctx.reply('❌ Noto‘g‘ri ID kiritildi. Masalan: `3`');
+        }
 
-    const index = this.hadis.findIndex((h) => h.id === id);
-    if (index === -1) {
-      this.deleteHadisSession.delete(userId);
-      return ctx.reply(`❌ #${id} raqamli hadis topilmadi.`);
-    }
+        const index = this.hadis.findIndex((h) => h.id === id);
+        if (index === -1) {
+          this.deleteHadisSession.delete(userId);
+          return ctx.reply(`❌ #${id} raqamli hadis topilmadi.`);
+        }
 
-    this.hadis.splice(index, 1);
-    const filePath = path.resolve(
-      __dirname,
-      '..',
-      'data',
-      'data',
-      'hadis.json',
-    );
-    fs.writeFileSync(filePath, JSON.stringify(this.hadis, null, 2));
+        this.hadis.splice(index, 1);
+        const filePath = path.resolve('public', 'hadis.json');
+        fs.writeFileSync(filePath, JSON.stringify(this.hadis, null, 2));
 
-    this.deleteHadisSession.delete(userId);
-    return ctx.reply(`✅ #${id} raqamli hadis muvaffaqiyatli o‘chirildi.`);
-  }
+        this.deleteHadisSession.delete(userId);
+        return ctx.reply(`✅ #${id} raqamli hadis muvaffaqiyatli o‘chirildi.`);
+      }
 
-  // 🗑 Kitob o‘chirish rejimi
-  if (this.deleteBookSession.has(userId)) {
-    const id = Number(text);
-    if (isNaN(id)) {
-      return ctx.reply('❌ Noto‘g‘ri ID kiritildi. Masalan: `2`');
-    }
+      // 🗑 Kitob o‘chirish rejimi
+      if (this.deleteBookSession.has(userId)) {
+        const id = Number(text);
+        if (isNaN(id)) {
+          return ctx.reply('❌ Noto‘g‘ri ID kiritildi. Masalan: `2`');
+        }
 
-    const index = this.books.findIndex((b) => b.id === id);
-    if (index === -1) {
-      this.deleteBookSession.delete(userId);
-      return ctx.reply(`❌ #${id} raqamli kitob topilmadi.`);
-    }
+        const index = this.books.findIndex((b) => b.id === id);
+        if (index === -1) {
+          this.deleteBookSession.delete(userId);
+          return ctx.reply(`❌ #${id} raqamli kitob topilmadi.`);
+        }
 
-    const removed = this.books.splice(index, 1)[0];
+        const removed = this.books.splice(index, 1)[0];
 
-    const filePath = path.resolve(
-      __dirname,
-      '..',
-      'books',
-      'books.json',
-    );
-    fs.writeFileSync(filePath, JSON.stringify(this.books, null, 2));
+        const filePath = path.resolve(
+          'public',
+          'books',
+          'books.json',
+        );
+        fs.writeFileSync(filePath, JSON.stringify(this.books, null, 2));
 
-    this.deleteBookSession.delete(userId);
-    return ctx.reply(`✅ "${removed.title}" kitobi (#${id}) o‘chirildi.`);
-  }
-});
-
+        this.deleteBookSession.delete(userId);
+        return ctx.reply(`✅ "${removed.title}" kitobi (#${id}) o‘chirildi.`);
+      }
+    });
 
     bot.on('document', async (ctx) => {
       const userId = ctx.from?.id;
@@ -289,8 +269,7 @@ export class BotService {
 
       const fileUrl = await ctx.telegram.getFileLink(file.file_id);
       const filePath = path.resolve(
-        __dirname,
-        '..',
+        'public',
         'books',
         file.file_name,
       );
@@ -308,8 +287,7 @@ export class BotService {
       });
 
       const booksJsonPath = path.resolve(
-        __dirname,
-        '..',
+        'public',
         'books',
         'books.json',
       );
