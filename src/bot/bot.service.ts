@@ -112,7 +112,7 @@ export class BotService {
           '— /hadis random → tasodifiy hadis\n\n' +
           '📖 <b>Kitoblar:</b>\n' +
           '— /books → mavjud PDF kitoblar roʻyxati (bosib yuklab olasiz)\n\n' +
-          '\n<b>📌 Eslatma:</b> Agar sizda savollar bo‘lsa, admin bilan bog‘laning.'+
+          '\n<b>📌 Eslatma:</b> Agar sizda savollar bo‘lsa, admin bilan bog‘laning.' +
           '\nAdmin bilan bog`lanish @MUHAMMADISO',
       );
     });
@@ -240,11 +240,15 @@ export class BotService {
     bot.action('hadis_list', (ctx) => {
       if (!this.isAdmin(ctx)) return ctx.reply('❌ Ruxsat yo‘q.');
 
-      const list = this.admins
-        .map((username, index) => `👤 ${index + 1}. @${username}`)
+      if (!this.hadis.length) {
+        return ctx.reply('📜 Hadislar ro‘yxati bo‘sh.');
+      }
+
+      const list = this.hadis
+        .map((h) => `#${h.id}: ${h.text.slice(0, 50)}...`)
         .join('\n');
 
-      return ctx.reply(`👥 Adminlar ro‘yxati:\n\n${list}`);
+      return ctx.reply(`📜 Hadislar ro‘yxati:\n\n${list}`);
     });
 
     bot.action('admin_add', (ctx) => {
