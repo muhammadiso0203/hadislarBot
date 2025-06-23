@@ -1,0 +1,401 @@
+[
+  {
+    "id": 1,
+    "ism": "Ar-Rahman",
+    "manosi": "Mehribon – Ulugʻ neʼmatlarni beruvchi. Bu sifat faqat Allohga xos boʻlib, barchaga kofirga ham, moʻminga ham mehribon va neʼmat beruvchi maʼnosini anglatadi. Rahmon sifatini Alloh taolodan boshqa hech kimga nisbatan ishlatib boʻlmaydi."
+  },
+  {
+    "id": 2,
+    "ism": "Ar-Rahim",
+    "manosi": "Rahmli – „Rohiym“ latif neʼmatlarni beruvchi. Bu sifat xosroq boʻlib, qiyomat kuni faqat moʻminlarga rahm qiluvchi maʼnosini anglatadi. Va Allohdan oʻzgalarga, jumladan Paygʻambar alayhissalomga nisbatan ham ishlatiladi."
+  },
+  {
+    "id": 3,
+    "ism": "Al-Malik",
+    "manosi": "Podsho – Barcha narsani egasi.`Malik` haqiqiy egadir. Undan oʻzga ega yoqdir. Shuning uchun bandalar faqat unga qul boʻladilar. Hech vaqtda bir qulga ikki xoʻjayin boʻlmaydi. Shuning uchun insonlar oʻzlariga oʻxshagan insonlarga emas, balki yagona yaratganga, haqiqiy Malikka qul boʻlish lozim."
+  },
+  {
+    "id": 4,
+    "ism": "Al-Quddus",
+    "manosi": "Muqaddas, nuqsonlardan holi – Barcha ayblardan xoli, noloyiq sifatlardan munazzah, mutlaq muqaddaslik va mutlaq poklik Allohning oʻzigagina hosdir."
+  },
+  {
+    "id": 5,
+    "ism": "As-Salam",
+    "manosi": "Ofat va balolardan salomat. Qutqarayotgan – „Salom“-barcha nuqsonlardan salomat. Shuningdek, tinchlik, xotirjamlik va rohat beruvchi degani. Alloh „Salom“ sifati ila bandalarga tinchlik, omonlik, xotirjamlik ato qiladi."
+  },
+  {
+    "id": 6,
+    "ism": "Al-Mu'min",
+    "manosi": "Moʻmin-iymon va omonlik beruvchi."
+  },
+  {
+    "id": 7,
+    "ism": "Al-Muhaymin",
+    "manosi": "Hamma narsani qamrab oluvchi. Alloh bandalarning barcha holatlariga guvoh boʻlib turadi. Undan hech narsa maxfiy qolmaydi."
+  },
+  {
+    "id": 8,
+    "ism": "Al-Aziz",
+    "manosi": "Izzat va qudrat sohibi. Ulugʻ – Barchaning ustidan gʻolib. Undan biror narsa gʻolib kelolmaydi."
+  },
+  {
+    "id": 9,
+    "ism": "Al-Jabbar",
+    "manosi": "Bandalarini ishlarini isloh etuvchi. Jabbor – oliy qadar ulugʻ, Uning oldida hamma oʻzini xor tutadi."
+  },
+  {
+    "id": 10,
+    "ism": "Al-Mutakabbir",
+    "manosi": "Kattalik yarashuvchi zot. Mutakabbir – kibriyosi va ulugʻligi behad. Uning oldida boshqalar qul boʻlib turadi."
+  },
+  {
+    "id": 11,
+    "ism": "Al-Xoliq",
+    "manosi": "Yaratuvchi, vujudga keltiruvchi. Xoliq – Asli va oʻxshashi yoq narsaning oʻlchovini mos qilib yaratuvchi. Xoliq mutloq vujudga keltiruvchidir."
+  },
+  {
+    "id": 12,
+    "ism": "Al-Bari",
+    "manosi": "Bori' – Yoʻqdan paydo qiluvchi, vujudga keltiruvchi, yaratuvchi. Bori’ning vujudga keltirishida tafovut yoqdir."
+  },
+  {
+    "id": 13,
+    "ism": "Al-Musovvir",
+    "manosi": "Maxluqot va mavjudotlarga suvrat va shakl beruvchi."
+  },
+  {
+    "id": 14,
+    "ism": "Al-G`offar",
+    "manosi": "Gʻaffor – Koʻplab magʻfirat qilib, bandalarning aybini oʻz fazli ila kechib yuboruvchi. bandalarning aybu nuqsonlari va gunohu maʼsiyatlarini fosh qilmay yopib turuvc"
+  },
+  {
+    "id": 15,
+    "ism": "Al-Qohhar",
+    "manosi": "Qahhor – Barcha maxluqotlarni qabzasida tutib, ularni oʻz hukmiga yuritib va qudrati ila boʻysundirib turuvchi."
+  },
+  {
+    "id": 16,
+    "ism": "Al-Vahhab",
+    "manosi": "Oʻz neʼmatlarini tekin ato etuvchi."
+  },
+  {
+    "id": 17,
+    "ism": "Al-Rozzaq",
+    "manosi": "Barcha tirik mavjudot rizqini yetkazib beruvchi."
+  },
+  {
+    "id": 18,
+    "ism": "Al-Fattah",
+    "manosi": "Hukm etuvchi, rahmat hazinalarini ochuvchi."
+  },
+  {
+    "id": 19,
+    "ism": "Al-Alim",
+    "manosi": "Biluvchi, dono, ilm sohibi. Boʻlgan va boʻladigan, avvalgi va oxirgi, zohir va botin narsalarning barchasini biluvchi."
+  },
+  {
+    "id": 20,
+    "ism": "Al-Qobiz",
+    "manosi": "Kimlarningdir rizqini qiyuvchi, ruhlarni qabz etuvchi (oluvchi)."
+  },
+  {
+    "id": 21,
+    "ism": "Al-Basit",
+    "manosi": "Kimlargadir keng rizq beruvchi, ruh baxsh etuvchi."
+  },
+  {
+    "id": 22,
+    "ism": "Al-Xofiz",
+    "manosi": "Kofirlar martabasini tushiruvchi."
+  },
+  {
+    "id": 23,
+    "ism": "Al-Rofi",
+    "manosi": "Moʻminlar martabasini koʻtaruvchi."
+  },
+  {
+    "id": 24,
+    "ism": "Al-Mu'izz",
+    "manosi": "Kimlarnidir aziz, qadrli etuvchi."
+  },
+  {
+    "id": 25,
+    "ism": "Al-Muzill",
+    "manosi": "Kimlarnidur xoru zalil qiluvchi."
+  },
+  {
+    "id": 26,
+    "ism": "As-Sami",
+    "manosi": "Maxfiy va oshkora gap va sharpalarni, xatto dildan oʻtganini ham, eshituvchi."
+  },
+  {
+    "id": 27,
+    "ism": "Al-Basir",
+    "manosi": "Hamma maxfiy va oshkora narsalarni koʻruvchi."
+  },
+  { "id": 28, "ism": "Al-Hakam", "manosi": "Qatʼiy hukm etuvchi." },
+  { "id": 29, "ism": "Al-Adl", "manosi": "Oʻta adolatli." },
+  {
+    "id": 30,
+    "ism": "Al-Latif",
+    "manosi": "Bandalariga sezdirmay oʻz lutfu ehsonini yetkasizb beruvchi."
+  },
+  {
+    "id": 31,
+    "ism": "Al-Xobir",
+    "manosi": "Hamma maxfiy va oshkora ishlardan xabardor."
+  },
+  {
+    "id": 32,
+    "ism": "Al-Halim",
+    "manosi": "Hamma maxfiy va oshkora ishlardan xabardo"
+  },
+  {
+    "id": 33,
+    "ism": "Al-Azim",
+    "manosi": "Azamatli va ulugʻ zot. Aql tasavvur qila olmaydigan darajada azamatli va ulugʻ."
+  },
+  { "id": 34, "ism": "Al-G`ofur", "manosi": "Koʻp magʻfirat qiluvchi." },
+  {
+    "id": 35,
+    "ism": "Ash-Shakur",
+    "manosi": "Oʻz amaliga koʻp savob beruvchi"
+  },
+  { "id": 36, "ism": "Al-Aliy", "manosi": "Martabasi oliylikda benihoya." },
+  { "id": 37, "ism": "Al-Kabir", "manosi": "Hammadan ulugʻ." },
+  {
+    "id": 38,
+    "ism": "Al-Hafiz",
+    "manosi": "Har bir narsani komil muhofaza qiluvchi."
+  },
+  {
+    "id": 39,
+    "ism": "Al-Muqit",
+    "manosi": "Barcha moddiy va ruhiy rizqlarni yaratuvchi."
+  },
+  { "id": 40, "ism": "An-Nasib", "manosi": "Hisob qiluvchi, kifoya qiluvchi." },
+  { "id": 41, "ism": "Al-Jalil", "manosi": "Sifatlarida ulugʻlikka ega." },
+  {
+    "id": 42,
+    "ism": "Al-Karim",
+    "manosi": "Saxovatli va karami keng. Birov soʻramasa ham, hech bir evaz olmasdan, narsalarni ato qiluvchi. Qarama-qarshilikdan pok. Karamli ishlar va xislatlar sohibi."
+  },
+  {
+    "id": 43,
+    "ism": "Ar-Roqib",
+    "manosi": "Doimo kuzatib turuvchi. Raqiyb – hech bir zararni ham qoʻymay tekshirib turuvchi."
+  },
+  { "id": 44, "ism": "Al-Mujib", "manosi": "Duolarni ijobat qiluvchi." },
+  { "id": 45, "ism": "Al-Vasi", "manosi": "Keng va keng qamrovli zotdir" },
+  { "id": 46, "ism": "Al-Hakim", "manosi": "Dono" },
+  { "id": 47, "ism": "Al-Vadud", "manosi": "Bandalarini sevuvchi" },
+  { "id": 48, "ism": "Al-Majid", "manosi": "Eng ulugʻvor" },
+  { "id": 49, "ism": "Al-Bais", "manosi": "Oʻliklarning tiriltiruvchisi" },
+  {
+    "id": 50,
+    "ism": "Ash-Shahid",
+    "manosi": "Har bir narsaga hoziru nozir. Barchaga shohidlik beruvchi."
+  },
+  {
+    "id": 51,
+    "ism": "Al-Haqq",
+    "manosi": "Oʻzgarmas sobit zot. Haqni yuzaga chiqaruvchi zot."
+  },
+  {
+    "id": 52,
+    "ism": "Al-Vakil",
+    "manosi": "Barchaning ishi unga topshirilgan zot."
+  },
+  { "id": 53, "ism": "Al-Qovviyy", "manosi": "Quvvatli zot." },
+  { "id": 54, "ism": "Al-Matin", "manosi": "Matonatli zot." },
+  {
+    "id": 55,
+    "ism": "Al-Valiyy",
+    "manosi": "Himoya qiluvchi doʻst, homiy va yordamchi"
+  },
+  {
+    "id": 56,
+    "ism": "Al-Hamid",
+    "manosi": "Barcha maqtovlar ila maqtalgan zot."
+  },
+  {
+    "id": 57,
+    "ism": "Al-Muhsi",
+    "manosi": "Barcha narsaning hisobini olgan zot."
+  },
+  {
+    "id": 58,
+    "ism": "Al-Mubdi",
+    "manosi": "Barcha narsalarni avval boshdan bor qilgan zot."
+  },
+  {
+    "id": 59,
+    "ism": "Al-Mu'id",
+    "manosi": "Yoʻq boʻlgan narsalarni yana qaytadan bor qiluvchi."
+  },
+  {
+    "id": 60,
+    "ism": "Al-Muhyi",
+    "manosi": "Tiriltiruvchi. U zot oʻliklarni tiriltiruvchidir va bu ismga ularni tiriltirishdan oldin sazovordir. Uni ularni oʻlik boʻlganlaridan keyin jon kiritib tirik qilganidan keyin tiriltiruvchi, deb atalganidek, ularni xalq qilishdan oldin, ularga hayot berishidan oldin ham, tiriltiruvchi, deyilaveradi. Xuddi, xaloyiqni xalq qilishidan oldin Xoliq boʻlganidek."
+  },
+  {
+    "id": 61,
+    "ism": "Al-Mumit",
+    "manosi": "Oʻldirivchi. Barcha jonzotlarning jonini oluvchi."
+  },
+  {
+    "id": 62,
+    "ism": "Al-Hayy",
+    "manosi": "Tirik. U tirikdir, oʻlmas. Yaʼni, Allohning hayoti abadiydir, oʻlim ila yoʻq boʻlmas. Shuningdek, Allohning hayoti azaliydir, oldindan yoʻq boʻlgan emas."
+  },
+  {
+    "id": 63,
+    "ism": "Al-Qoyyum",
+    "manosi": "Oʻz oʻzidan qoim boʻlgan va boshqalarni qoim qilgan zot."
+  },
+  {
+    "id": 64,
+    "ism": "Al-Vajid",
+    "manosi": "Topuvchi. Xohlagan narsasini topuvchi. Bu ishda birov Uni toʻsa olmaydi."
+  },
+  { "id": 65, "ism": "Al-Majid", "manosi": "Majdu sharaf sohibi boʻlgan zot." },
+  {
+    "id": 66,
+    "ism": "Al-Vahid",
+    "manosi": "Yagona. Bita. Boʻlinmas. U zot oʻz zotida ham, sifatlarida ham va ishlarida ham birdir."
+  },
+  { "id": 67, "ism": "Al-Ahad", "manosi": "Yagona, Boʻlinmas." },
+  {
+    "id": 68,
+    "ism": "As-Somad",
+    "manosi": "Somad sifati koʻp maʼnolarni oʻz ichiga oladi:- itoat qilingan ulugʻ-Usiz hech bir ish bitmaydi.- hech kimga hojati tushmaydi, barchaning hojati Unga tushadi.- butun maxluqot bitib tugasa ham, Oʻzi doim boqiydir va hokazo."
+  },
+  {
+    "id": 69,
+    "ism": "Al-Qodir",
+    "manosi": "Cheksiz qudrat sohibi. U zot har bir narsaga qodirdir. har bir ish unga osondir."
+  },
+  { "id": 70, "ism": "Al-Muqtadir", "manosi": "Juda ham qudratli." },
+  {
+    "id": 71,
+    "ism": "Al-Muqoddim",
+    "manosi": "Oldinga suruvchi. U zot xohlagan shaxs va narsani xohlaganidan oldinga suradi."
+  },
+  {
+    "id": 72,
+    "ism": "Al-Mu'axxir",
+    "manosi": "Orqaga suruvchi. U zot xohlagan shaxs va narsani xohlaganidan orqaga suradi."
+  },
+  {
+    "id": 73,
+    "ism": "Al-Avval",
+    "manosi": "„Avval“ – U hamma narsadan avval, yaʼni, barcha mavjudotlar yoʻqligida Alloh bor edi. Mavjudotlarni „Avval“ sifatiga ega boʻlgan Alloh yaratdi. Yaʼni, Alloh vujudga kelishining boshlanishi yoʻqdir."
+  },
+  {
+    "id": 74,
+    "ism": "Al-Axir",
+    "manosi": "Oxir“ – U hamma narsa yoʻq boʻlib ketganda ham Oʻzi qoladi."
+  },
+  {
+    "id": 75,
+    "ism": "Az-Zohir",
+    "manosi": "Zohir“ – Uning mavjudligi oshkor, ochiq-oydindir. U hamma narsadan zohir-ustundir."
+  },
+  {
+    "id": 76,
+    "ism": "Al-Batin",
+    "manosi": "'Botin' – U koʻzga koʻrinmaydi. Hammadan pinhon-maxfiy narsalarni bilib turuvchidir."
+  },
+  {
+    "id": 77,
+    "ism": "Al-Vali",
+    "manosi": "Har bir narsaga voliy – ega boʻlgan zot."
+  },
+  {
+    "id": 78,
+    "ism": "Al-Mutaali",
+    "manosi": "Nuqsonlardan yuqori turuvchi zot."
+  },
+  { "id": 79, "ism": "Al-Barr", "manosi": "Ulugʻ yaxshilik qiluvchi." },
+  {
+    "id": 80,
+    "ism": "At-Tavvab",
+    "manosi": "Bandalarni tavbaga yoʻllovchi va ularning tavbasini koʻplab qabul qiluvchi zot."
+  },
+  {
+    "id": 81,
+    "ism": "Al-Muntaqim",
+    "manosi": "Zolim va osiylardan intiqom oluvchi."
+  },
+  { "id": 82, "ism": "Al-Afuvv", "manosi": "Afv qiluvchi." },
+  { "id": 83, "ism": "Ar-Ro'uf", "manosi": "Oʻta shafqatli va mehribon." },
+  {
+    "id": 84,
+    "ism": "Ma'lik-ul-Mulk",
+    "manosi": "Mulk egasi. Bu dunyodagi ishlarni oʻzi xohlaganicha qiladi. Uning qazosini qaytaradigan va hukmini oʻzgartiradigan yoʻq"
+  },
+  {
+    "id": 85,
+    "ism": "Zul-Jalali-Val'ikrom",
+    "manosi": "Sharaf va kamol egasi. Karam va ikrom egas"
+  },
+  {
+    "id": 86,
+    "ism": "Al-Muqsit",
+    "manosi": "Oʻz adolati ila mazlumlarga nusrat va zolimlarga jazo beruvchi."
+  },
+  {
+    "id": 87,
+    "ism": "Al-Jami",
+    "manosi": "Jamlovchi. Barcha haqiqatlarni jamlovchi. Odamlarni qiyomat kuni jamlovchi."
+  },
+  {
+    "id": 88,
+    "ism": "Al-G`oni",
+    "manosi": "Behojat. Uning hech kim va hech narsaga hojati tushmaydi."
+  },
+  {
+    "id": 89,
+    "ism": "Al-Mug`ni",
+    "manosi": "Behojat qiluvchi. U zot Oʻz bandalaridan qay birini xohlasa behojat qilib qoʻyadi."
+  },
+  { "id": 90, "ism": "Al-Ma'ni", "manosi": "Man qiluvchi." },
+  {
+    "id": 91,
+    "ism": "Az-Zorr",
+    "manosi": "Zarar qiluvchi. Zararli narsalarni ham yaratuvchi."
+  },
+  { "id": 92, "ism": "An-Nafi", "manosi": "Manfaat beruvchi." },
+  {
+    "id": 93,
+    "ism": "An-Nur",
+    "manosi": "Oʻz-oʻzi ila zohir boʻlgan va oʻzgalarni zohir qilgan."
+  },
+  {
+    "id": 94,
+    "ism": "Al-Hadi",
+    "manosi": "Hidoyat qiluvchi. U zot Oʻz fazli ila xohlagan kimsani hidoyat qiladi. Yaʼni, Alloh kimni toʻgʻri yoʻlga hidoyat qilsa, albatta, Oʻz xohishi va fazli ila hidoyat qiladi."
+  },
+  {
+    "id": 95,
+    "ism": "Al-Badi",
+    "manosi": "Oʻxshashi yoʻq narsalarni keltiruvchi."
+  },
+  {
+    "id": 96,
+    "ism": "Al-Baqi",
+    "manosi": "Boqiy qoluvchi. U doimiy bordir, unga foniylik oriz boʻlmas."
+  },
+  {
+    "id": 97,
+    "ism": "Al-Varis",
+    "manosi": "Muvjudotlar yoʻq boʻlganda ham boqiy qoluvchi zot."
+  },
+  { "id": 98, "ism": "Ar-Roshid", "manosi": "Toʻgʻri yoʻlga irshod qiluvchi." },
+  {
+    "id": 99,
+    "ism": "As-Sobur",
+    "manosi": "Oʻta sabrli. Osiylarni azoblashga shoshilmaydi."
+  }
+]

@@ -10,11 +10,39 @@ export class BotService {
   private users: any[] = [];
   private books: any[] = [];
   private admins: string[] = [];
+  private ism: { id: number; ism: string; manosi: string }[] = [];
   private addHadisSession = new Map<number, boolean>();
   private deleteHadisSession = new Map<number, boolean>();
   private addBookSession = new Map<number, boolean>();
   private deleteBookSession = new Map<number, boolean>();
   private addAdminSession = new Map<number, boolean>();
+  private ismPageSession = new Map<number, number>();
+
+  private sendIsmPage(ctx: Context, page: number) {
+    const itemsPerPage = 10;
+    const start = page * itemsPerPage;
+    const end = start + itemsPerPage;
+    const slice = this.ism.slice(start, end);
+
+    if (slice.length === 0) {
+      return ctx.reply('✅ Barcha ismlar ko‘rsatildi.');
+    }
+
+    let msg = `<b>🕌 Allohning 99 go‘zal ismlari</b>\n\n`;
+
+    slice.forEach((item) => {
+      msg += `<b>${item.id}. ${item.ism}</b> – ${item.manosi}\n`;
+    });
+
+    const keyboard: Array<ReturnType<typeof Markup.button.callback>[]> = [];
+    if (end < this.ism.length) {
+      keyboard.push([
+        Markup.button.callback('➡️ Davomi', `ism_next_${page + 1}`),
+      ]);
+    }
+
+    ctx.replyWithHTML(msg, Markup.inlineKeyboard(keyboard));
+  }
 
   constructor(private configService: ConfigService) {
     try {
@@ -64,6 +92,14 @@ export class BotService {
     } catch (error) {
       console.log('❌ Adminlar faylini yuklab bo‘lmadi:', error);
       this.admins = [];
+    }
+
+    try {
+      const ismlar = path.resolve('public', '99_ism.json');
+      this.ism = JSON.parse(fs.readFileSync(ismlar, 'utf-8'));
+      console.log(`${this.ism.length}-ism yuklandi`);
+    } catch (error) {
+      console.log('Ismlar yuklanmadi');
     }
   }
 
@@ -115,6 +151,14 @@ export class BotService {
           '\n<b>📌 Eslatma:</b> Agar sizda savollar bo‘lsa, admin bilan bog‘laning.' +
           '\nAdmin bilan bog`lanish @MUHAMMADISO',
       );
+    });
+
+    bot.command('Allohning_ismlari', (ctx) => {
+      const userId = ctx.from?.id;
+      if (!userId) return;
+
+      this.ismPageSession.set(userId, 0); // 0-dan boshlaymiz
+      this.sendIsmPage(ctx, 0); // sahifani yuboramiz
     });
 
     bot.command('hadis', (ctx) => {
@@ -284,6 +328,18 @@ export class BotService {
       👑 Admin ID: <code>${adminId}</code>`;
 
       ctx.replyWithHTML(msg);
+    });
+
+    bot.action(/ism_next_(\d+)/, (ctx) => {
+      const match = ctx.match;
+      if (!match) return;
+
+      const nextPage = parseInt(match[1]);
+      const userId = ctx.from?.id;
+      if (!userId) return;
+
+      this.ismPageSession.set(userId, nextPage);
+      this.sendIsmPage(ctx, nextPage);
     });
 
     bot.action('book_list', (ctx) => {
