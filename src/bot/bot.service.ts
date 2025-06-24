@@ -109,63 +109,49 @@ export class BotService {
   }
 
   init(bot: Telegraf<Context>) {
-    bot.start((ctx: Context) => {
-      const userId = ctx.from?.id;
-      if (!userId) return;
-
-      const username = ctx.from?.username || 'Nomaʼlum';
+    bot.start((ctx) => {
       const fullName =
         `${ctx.from?.first_name || ''} ${ctx.from?.last_name || ''}`.trim();
-      const joinedAt = new Date().toISOString();
-
-      // Foydalanuvchi allaqachon ro'yxatda bormi?
-      const alreadyExists = this.users.some((u) => u.id === userId);
-
-      if (!alreadyExists) {
-        const newUser = {
-          id: userId,
-          username,
-          fullName,
-          joinedAt,
-        };
-
-        this.users.push(newUser);
-
-        // Faylga saqlash
-        const usersPath = path.resolve('public', 'users.json');
-        fs.writeFileSync(usersPath, JSON.stringify(this.users, null, 2));
-        console.log(
-          `✅ Yangi foydalanuvchi qo‘shildi: ${fullName} (${userId})`,
-        );
-      }
-
-      ctx.replyWithHTML(
-        '🤖 <b>Assalomu alaykum!</b>\n\n' +
-          '📚 <b>Qurʼon va Hadis botiga</b> xush kelibsiz!\n\n' +
-          'Siz bu bot orqali quyidagilarni qilishingiz mumkin:\n\n' +
-          '📜 <b>Hadis olish:</b>\n' +
-          '— /hadis 1 → 1-raqamli hadisni olish\n' +
-          '— /hadis random → tasodifiy hadis\n\n' +
-          '📖 <b>Kitoblar:</b>\n' +
-          '— /books → mavjud PDF kitoblar roʻyxati (bosib yuklab olasiz)\n\n' +
-          '\n<b>📌 Eslatma:</b> Agar sizda savollar bo‘lsa, admin bilan bog‘laning.' +
-          '\nAdmin bilan bog`lanish @MUHAMMADISO',
+      ctx.reply(
+        `🤖 Assalomu alaykum, ${fullName}!\n\nQuyidagilardan birini tanlang:`,
+        Markup.keyboard([
+          ['📜 Hadislar', '📚 Kitoblar'],
+          ['🧿 Allohning 99 ismi'],
+        ])
+          .resize()
+          .oneTime(),
       );
     });
 
-    bot.command('Allohning_ismlari', (ctx) => {
+    bot.hears('🧿 Allohning 99 ismi', (ctx) => {
       const userId = ctx.from?.id;
       if (!userId) return;
-
       this.ismPageSession.set(userId, 0); // 0-dan boshlaymiz
       this.sendIsmPage(ctx, 0); // sahifani yuboramiz
     });
 
-    bot.command('hadis', (ctx) => {
-      const input = ctx.message.text.split(' ')[1];
+    // 1) 📜 Hadislar tugmasi bosilganda — foydalanuvchiga yo‘riqnoma chiqariladi
+    bot.hears('📜 Hadislar', (ctx) => {
+      ctx.reply(
+        '📜 <b>Hadislar bo‘limi</b>\n\nQuyidagicha foydalanishingiz mumkin:\n\n' +
+          '✍️ <code>hadis 1</code> — 1-raqamli hadis\n' +
+          '🎲 <code>hadis random</code> — tasodifiy hadis\n\n' +
+          'Masalan:\n<code>hadis 3</code> yoki <code>hadis random</code>',
+        { parse_mode: 'HTML' },
+      );
+    });
+
+    bot.hears(/^hadis(.*)/i, (ctx) => {
+      const userId = ctx.from?.id;
+      if (!userId) return;
+
+      const messageText = ctx.message?.text || '';
+      const parts = messageText.split(' ');
+
+      const input = parts[1];
 
       if (!input) {
-        return ctx.reply('❗ Misol: /hadis 1 yoki /hadis random');
+        return ctx.reply('❗ Misol: hadis 1 yoki hadis random');
       }
 
       if (['random', 'tasodifiy'].includes(input.toLowerCase())) {
@@ -183,28 +169,34 @@ export class BotService {
       }
     });
 
-    bot.command('books', (ctx) => {
-      const buttons = this.books.map((book) => [
-        Markup.button.callback(book.title, `book_${book.id}`),
-      ]);
-      ctx.reply('📚 Mavjud kitoblar:', Markup.inlineKeyboard(buttons));
-    });
+    bot.hears('📚 Kitoblar', (ctx) => {
+  if (!this.books.length) {
+    return ctx.reply('📚 Hech qanday kitob mavjud emas.');
+  }
+
+  const buttons = this.books.map((book) => [
+    Markup.button.callback(book.title, `book_${book.id}`),
+  ]);
+
+  ctx.reply('📚 Quyidagi kitoblardan birini tanlang:', Markup.inlineKeyboard(buttons));
+});
+
 
     // PDF yuborish
     this.books.forEach((book) => {
-      bot.action(`book_${book.id}`, (ctx) => {
-        const filePath = path.resolve('public', 'books', 'books.json');
+  bot.action(`book_${book.id}`, (ctx) => {
+    const filePath = path.resolve('public', 'books', book.file); // ✅ kitob fayli shu joyda
+    if (!fs.existsSync(filePath)) {
+      return ctx.reply('❌ Kitob topilmadi.');
+    }
 
-        if (!fs.existsSync(filePath)) {
-          return ctx.reply('❌ Kitob topilmadi.');
-        }
-
-        return ctx.replyWithDocument({
-          source: filePath,
-          filename: book.title + '.pdf',
-        });
-      });
+    return ctx.replyWithDocument({
+      source: filePath,
+      filename: book.title + '.pdf',
     });
+  });
+});
+
 
     bot.command('testhadis', (ctx: Context) => {
       const hadis3 = this.hadis.find((h) => h.id === 3);
