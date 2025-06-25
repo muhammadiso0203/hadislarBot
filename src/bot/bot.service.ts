@@ -10,6 +10,7 @@ export class BotService {
   private users: any[] = [];
   private books: any[] = [];
   private admins: string[] = [];
+  private duolar: any[] = [];
   private ism: { id: number; ism: string; manosi: string }[] = [];
   private addHadisSession = new Map<number, boolean>();
   private deleteHadisSession = new Map<number, boolean>();
@@ -17,6 +18,7 @@ export class BotService {
   private deleteBookSession = new Map<number, boolean>();
   private addAdminSession = new Map<number, boolean>();
   private ismPageSession = new Map<number, number>();
+  private addZikrSession = new Map<number, boolean>();
 
   private sendIsmPage(ctx: Context, page: number) {
     const itemsPerPage = 10;
@@ -101,6 +103,14 @@ export class BotService {
     } catch (error) {
       console.log('Ismlar yuklanmadi');
     }
+
+    try {
+      const pathToZikr = path.resolve('public', 'zikrlar.json');
+      this.duolar = JSON.parse(fs.readFileSync(pathToZikr, 'utf8'));
+      console.log('✅ Zikrlar yuklandi:', this.duolar.length);
+    } catch (err) {
+      console.log('❌ Zikr faylini o‘qishda xatolik:', err);
+    }
   }
 
   private isAdmin(ctx: Context): boolean {
@@ -116,10 +126,41 @@ export class BotService {
         `🤖 Assalomu alaykum, ${fullName}!\n\nQuyidagilardan birini tanlang:`,
         Markup.keyboard([
           ['📜 Hadislar', '📚 Kitoblar'],
-          ['🧿 Allohning 99 ismi'],
+          ['🧿 Allohning 99 ismi', '📿 Zikrlar'],
         ])
           .resize()
           .oneTime(),
+      );
+    });
+
+    bot.hears('📿 Zikrlar', (ctx) => {
+      return ctx.reply(
+        `📿 Zikrlar bo‘limi:\n\nQuyidagi buyruqni kiriting:\n\n` +
+          `- <b>1</b> — <b>1-raqamli zikrni ko'rish</b>\n`,
+        { parse_mode: 'HTML' },
+      );
+    });
+
+    bot.hears(/^\d+$/, (ctx) => {
+      const userId = ctx.from?.id;
+      if (!userId) return;
+
+      const number = Number(ctx.message.text);
+
+      if (isNaN(number)) return;
+
+      // Zikrlar massivini oldin tayyorlab oling (masalan: this.zikrlar)
+      const zikr = this.duolar[number - 1]; // Indeks 0dan boshlanadi
+
+      if (!zikr) {
+        return ctx.reply('❌ Bunday raqamdagi zikr topilmadi.');
+      }
+
+      ctx.reply(
+        `🧿 ${number}-zikr:\n\n<b>${zikr.arab}</b>\n\n<b>${zikr.uz}</b>\n\n  <b>${zikr.manosi}</b>`,
+        {
+          parse_mode: 'HTML',
+        },
       );
     });
 
@@ -170,33 +211,34 @@ export class BotService {
     });
 
     bot.hears('📚 Kitoblar', (ctx) => {
-  if (!this.books.length) {
-    return ctx.reply('📚 Hech qanday kitob mavjud emas.');
-  }
+      if (!this.books.length) {
+        return ctx.reply('📚 Hech qanday kitob mavjud emas.');
+      }
 
-  const buttons = this.books.map((book) => [
-    Markup.button.callback(book.title, `book_${book.id}`),
-  ]);
+      const buttons = this.books.map((book) => [
+        Markup.button.callback(book.title, `book_${book.id}`),
+      ]);
 
-  ctx.reply('📚 Quyidagi kitoblardan birini tanlang:', Markup.inlineKeyboard(buttons));
-});
-
+      ctx.reply(
+        '📚 Quyidagi kitoblardan birini tanlang:',
+        Markup.inlineKeyboard(buttons),
+      );
+    });
 
     // PDF yuborish
     this.books.forEach((book) => {
-  bot.action(`book_${book.id}`, (ctx) => {
-    const filePath = path.resolve('public', 'books', book.file); // ✅ kitob fayli shu joyda
-    if (!fs.existsSync(filePath)) {
-      return ctx.reply('❌ Kitob topilmadi.');
-    }
+      bot.action(`book_${book.id}`, (ctx) => {
+        const filePath = path.resolve('public', 'books', book.file); // ✅ kitob fayli shu joyda
+        if (!fs.existsSync(filePath)) {
+          return ctx.reply('❌ Kitob topilmadi.');
+        }
 
-    return ctx.replyWithDocument({
-      source: filePath,
-      filename: book.title + '.pdf',
+        return ctx.replyWithDocument({
+          source: filePath,
+          filename: book.title + '.pdf',
+        });
+      });
     });
-  });
-});
-
 
     bot.command('testhadis', (ctx: Context) => {
       const hadis3 = this.hadis.find((h) => h.id === 3);
@@ -215,18 +257,21 @@ export class BotService {
           [
             Markup.button.callback('📜 Hadislar ro`yxati', 'hadis_list'),
             Markup.button.callback('➕ Hadis qo‘shish', 'hadis_add'),
+            Markup.button.callback('❌ Hadis o‘chirish', 'hadis_delete'),
           ],
           [
-            Markup.button.callback('❌ Hadis o‘chirish', 'hadis_delete'),
+            Markup.button.callback('👥 Adminlar ro‘yxati', 'admin_list'),
             Markup.button.callback('➕ Admin qo‘shish', 'admin_add'),
+            Markup.button.callback('❌ Admin o‘chirish', 'admin_delete'),
           ],
           [
             Markup.button.callback('📚 Kitoblar ro‘yxati', 'book_list'),
             Markup.button.callback('📤 Kitob qo‘shish', 'book_add'),
+            Markup.button.callback('🗑 Kitob o‘chirish', 'book_delete'),
           ],
           [
-            Markup.button.callback('🗑 Kitob o‘chirish', 'book_delete'),
-            Markup.button.callback('👥 Adminlar ro‘yxati', 'admin_list'),
+            Markup.button.callback('📿 Zikr qo‘shish', 'add_zikr'),
+            Markup.button.callback('📜 Zikrlar ro‘yxati', 'list_zikr'),
           ],
           [
             Markup.button.callback('📊 Statistika', 'stat'),
@@ -234,6 +279,76 @@ export class BotService {
           ],
         ]),
       );
+    });
+
+    bot.action('admin_delete', (ctx) => {
+      if (!this.isAdmin(ctx)) return ctx.reply('❌ Ruxsat yo‘q.');
+
+      if (this.admins.length <= 1) {
+        return ctx.reply('❌ Faqat bitta admin qolgan, o‘chirib bo‘lmaydi.');
+      }
+
+      const list = this.admins
+        .filter((u) => u !== ctx.from?.username)
+        .map((username) => [
+          Markup.button.callback(
+            `❌ ${username}`,
+            `admin_delete_confirm_${username}`,
+          ),
+        ]);
+
+      return ctx.reply(
+        '🗑 Qaysi adminni o‘chirmoqchisiz?',
+        Markup.inlineKeyboard(list),
+      );
+    });
+
+    bot.action(/^admin_delete_confirm_(.+)/, (ctx) => {
+      if (!this.isAdmin(ctx)) return ctx.reply('❌ Ruxsat yo‘q.');
+
+      const targetUsername = ctx.match[1];
+      const fromUsername = ctx.from?.username;
+
+      if (targetUsername === fromUsername) {
+        return ctx.reply('❌ O‘zingizni o‘chira olmaysiz!');
+      }
+
+      if (!this.admins.includes(targetUsername)) {
+        return ctx.reply('❌ Admin topilmadi.');
+      }
+
+      this.admins = this.admins.filter((u) => u !== targetUsername);
+
+      const pathToAdmins = path.resolve('public', 'admins.json');
+      fs.writeFileSync(pathToAdmins, JSON.stringify(this.admins, null, 2));
+
+      return ctx.reply(`✅ Admin o‘chirildi: @${targetUsername}`);
+    });
+
+    bot.action('add_zikr', (ctx) => {
+      if (!this.isAdmin(ctx)) return ctx.reply('❌ Ruxsat yo‘q.');
+      this.addZikrSession.set(ctx.from.id, true);
+      ctx.reply(
+        '📿 Yangi zikrni quyidagicha kiriting:\n\n<b>Arabcha matn</b>\n<b>O‘zbekcha matn</b>\n<b>Maʼnosi</b>',
+        {
+          parse_mode: 'HTML',
+        },
+      );
+    });
+
+    bot.action('list_zikr', (ctx) => {
+      if (!this.isAdmin(ctx)) return ctx.reply('❌ Ruxsat yo‘q.');
+
+      if (!this.duolar.length) return ctx.reply('📿 Zikrlar mavjud emas.');
+
+      const list = this.duolar
+        .map(
+          (z, i) =>
+            `📿  ${i + 1}.\n ${z.arab.slice(0, 1000)}.\n\n ${z.uz.slice(0, 1000)}.\n\n ${z.manosi.slice(0, 1000)}\n`,
+        )
+        .join('\n');
+
+      return ctx.reply(`📜 Zikrlar ro‘yxati:\n\n${list}`);
     });
 
     bot.action('exit', async (ctx) => {
@@ -369,6 +484,29 @@ export class BotService {
       const text = ctx.message?.text;
       if (!text) return;
 
+      // ✅ Yangi zikr qo‘shish
+      if (this.addZikrSession.has(userId)) {
+        const lines = text.split('\n');
+
+        if (lines.length < 3) {
+          return ctx.reply(
+            '❌ Iltimos, to‘liq formatda yuboring:\nArabcha\nO‘zbekcha\nMaʼnosi',
+          );
+        }
+
+        const [arab, uz, manosi] = lines;
+        const newZikr = { arab, uz, manosi };
+
+        this.duolar.push(newZikr);
+
+        const filePath = path.resolve('public', 'zikrlar.json');
+        fs.writeFileSync(filePath, JSON.stringify(this.duolar, null, 2));
+
+        this.addZikrSession.delete(userId);
+
+        return ctx.reply('✅ Yangi zikr muvaffaqiyatli qo‘shildi.');
+      }
+
       // ✅ Hadis qo‘shish rejimi
       if (this.addHadisSession.has(userId)) {
         const newId =
@@ -407,8 +545,8 @@ export class BotService {
 
       // 🗑 Kitob o‘chirish rejimi
       if (this.deleteBookSession.has(userId)) {
-        const id = Number(text);
-        if (isNaN(id)) {
+        const id = String(text);
+        if (isNaN(+id)) {
           return ctx.reply('❌ Noto‘g‘ri ID kiritildi. Masalan: `2`');
         }
 
@@ -450,6 +588,20 @@ export class BotService {
         this.addAdminSession.delete(userId);
         return ctx.reply(
           `✅ Yangi admin qo‘shildi: <code>@${username}</code>`,
+          { parse_mode: 'HTML' },
+        );
+      }
+
+      // 🔢 Raqam orqali zikrni chiqarish (masalan: 1)
+      if (/^\d+$/.test(text)) {
+        const number = Number(text);
+        const zikr = this.duolar[number - 1];
+        if (!zikr) {
+          return ctx.reply('❌ Bunday raqamdagi zikr topilmadi.');
+        }
+
+        return ctx.reply(
+          `🧿 ${number}-zikr:\n\n<b>${zikr.arab}</b>\n\n<b>${zikr.uz}</b>\n\n<b>${zikr.manosi}</b>`,
           { parse_mode: 'HTML' },
         );
       }
